@@ -25,6 +25,7 @@ int	handle_mouse(int keycode, int x, int y, t_model *m)
 	return (0);
 }
 
+// Allows the user to set the value of c constant with mouse and right click
 int	handle_motion(int x, int y, t_model *m)
 {
 	t_vector mouse_pos;
@@ -70,8 +71,11 @@ int change_color_shift(int keycode, t_model *model)
 {
 	if (keycode == 100)
 		model->color_shift = (model->color_shift + 1) % model->max_iter;
-	if (keycode == 97)
+	if (keycode == 97 )
 		model->color_shift = (model->color_shift - 1) % model->max_iter;
+	
+	if(model->color_shift == 0)
+		model->color_shift = model->max_iter;
 	// printf("color shift : %d \n",  model->color_shift);
 	render(model);
 }
@@ -81,7 +85,7 @@ int change_color_precision(int keycode, t_model *model)
 	// printf("color precision : %d\n", model->color_precision );
 	if (keycode == 119)
 		model->color_precision = (model->color_precision + 1);
-	if (keycode == 115)
+	if (keycode == 115 && 1 < model->color_precision)
 		model->color_precision = (model->color_precision - 1);
 	// printf("color shift : %d \n",  model->color_shift);
 	render(model);
@@ -91,7 +95,7 @@ int change_max_iter(int keycode, t_model *model)
 {
 	if (keycode == 114)
 		model->max_iter = (model->max_iter + 10);
-	if (keycode == 102)
+	if (keycode == 102 && 1 < model->max_iter)
 		model->max_iter = (model->max_iter - 10);
 	
 	free(model->histogram);

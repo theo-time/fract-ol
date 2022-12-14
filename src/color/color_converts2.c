@@ -13,6 +13,7 @@ int	create_HSV(float H, float S, float V)
     if(H>360 || H<0 || S>100 || S<0 || V>100 || V<0)
     {
         ft_printf("The givem HSV values are not in valid range : %d %d %d \n", H, S, V);
+        exit(0);
         return create_trgb(255,30,30,30);
     }
     
