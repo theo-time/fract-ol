@@ -9,7 +9,11 @@
 |  ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝   ╚═╝ *  ╚═════╝ ╚══════╝  |
 +──────────────────────────────────────────────────────────────+
 |                                                              |
-|   Welcome to this fractal generator tool !                   |
+|   Welcome to Fractol generator tool !                        |
+|                                                              |
+| > Use the first letter of the fractal as argument            |
+|                                                              |
+| > Fractals : (M)andelbrot, (J)ulia, (B)urning ship, (X)or..  |
 |                                                              |
 | > Use the arrow keys to move the camera.                     |
 |                                                              |

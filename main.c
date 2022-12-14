@@ -238,7 +238,7 @@ int	main(int argc, char **argv)
 	// Common init
 	m.formula_name = argv[1];
 	m.mlx = mlx_init();
-	m.win = mlx_new_window(m.mlx, WINDOW_X_SIZE, WINDOW_Y_SIZE, "Hello world!");
+	m.win = mlx_new_window(m.mlx, WINDOW_X_SIZE, WINDOW_Y_SIZE, "Fractol");
 	m.camera = get_camera();
 	img.img = mlx_new_image(m.mlx, WINDOW_X_SIZE, WINDOW_Y_SIZE);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
@@ -252,12 +252,28 @@ int	main(int argc, char **argv)
 	if(!m.histogram || !m.hues)
 		return (1);
 
+	m.color_algos[0] = &neutral;
+	m.color_algos[1] = &yellow_BnW;
+	m.color_algos[2] = &black_n_white;
+	m.color_algos[3] = &one_color_gradient;
+	m.color_algos[4] = &one_color_gradient2;
+	m.color_algos[5] = &multicolor2;
+	m.color_algos[6] = &rainbow_efficient;
+	m.color_algos[7] = &rainbow_efficient2;
+	m.color_algos[8] = &rainbow_efficient3;
+	m.color_algos[9] = &basic_HSV;
+	m.color_algos[10] = &shaded_HSV;
+	m.color_algos[11] = &shaded_HSV_2;
+	m.color_algos[12] = &polynomials;
+	m.color_algos[13] = &histogram;
+
 	// MDB init
 	m.c.x = 0;
 	m.c.y = 0;
-	m.color_algo = &basic_HSV;
-	m.color_algo_id = 1;
 
+	m.color_algo_id = 0;
+
+	m.color_algo = m.color_algos[m.color_algo_id];
 	// Julia init 
 	if(m.formula_name[0] == 'J')
 	{

@@ -18,7 +18,8 @@ char	*str_not_null(char *dest, char *src)
 	char	*todup;
 	int		i;
 	int		size;
-
+	
+	todup = NULL;
 	if (src == NULL && dest == NULL)
 		return (NULL);
 	if (src == NULL)

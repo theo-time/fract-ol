@@ -29,7 +29,9 @@ int	mandelbrot(double c_r, double c_i, t_model *model)
 	}
 
     if (i == model->max_iter)
-        return model->max_iter;
+	{
+        return (model->max_iter);
+	}
 
 	return (i + 1 - log(log2(sqrt(z.r*z.r + z.i * z.i))));
 }

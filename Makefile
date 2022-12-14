@@ -33,21 +33,20 @@ OBJ = $(SRC:.c=.o)
 all: ${NAME}
  
 $(NAME): $(OBJ) $(LIBS)
-	$(CC) $(OBJ) $(HEADERS) $(LFLAGS) -o $(NAME)
+	$(CC) $(OBJ) $(LIBS) $(HEADERS) $(LFLAGS) -o $(NAME)
 
 $(LIBS):
 	make -C lib/ft_printf
 	
 debug: $(LIBS)
-	$(CC) $(SRC) $(LIBS) $(HEADERS) $(LFLAGS) -g3 -o $(NAME) # && ./fractol mandelbrot
+	$(CC) $(SRC) $(LIBS) $(HEADERS) $(LFLAGS) -g3 -o $(NAME) 
 
 
 %.o: %.c
 	$(CC) -Wall -Wextra -Werror $(HEADERS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 clean:
-	/bin/rm -f ${OBJ_BONUS}
- 	# make -C libft fclean 
+	/bin/rm -f ${OBJ}
 
 fclean: clean
 	/bin/rm -f ${NAME}

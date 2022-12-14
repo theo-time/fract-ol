@@ -15,10 +15,8 @@
 void print_menu()
 {
     int fd;
-    int i;
     char *line;
     fd = open("./src/UI/Title", O_RDONLY);
-    i = 0;
     line = get_next_line(fd);
     while(line)
     {

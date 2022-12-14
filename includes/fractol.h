@@ -26,6 +26,7 @@
 # define WINDOW_X_SIZE 720
 # define WINDOW_Y_SIZE 480
 # define MAX_ITER 200
+# define COLOR_ALGOS_NB 14
 
 typedef struct s_data
 {
@@ -60,7 +61,8 @@ typedef struct Model
 {
 	double		a;
 	int			(*color_algo)(int, int, int, int);
-	int		color_algo_id;
+	void		*color_algos[COLOR_ALGOS_NB];
+	int			color_algo_id;
 	int			color_shift;
 	int			color_precision;
 	int			*histogram;
@@ -88,9 +90,9 @@ typedef struct color_params
 int				handle_mouse(int keycode, int x, int y, t_model *m);
 int				handle_motion(int x, int y, t_model *m);
 int				handle_key(int keycode, t_model *m);
-int				close_window(t_model *m);
+void				close_window(t_model *m);
 int				close_app(t_model *m);
-int				print_params(t_model *model);
+void				print_params(t_model *model);
 
 // UI
 void			print_menu(void);
@@ -126,6 +128,7 @@ int				basic_HSV(int n, int color_shift, int color_precision,
 					int max_iter);
 int				shaded_HSV(int n, int color_shift, int color_precision,
 					int max_iter);
+int	shaded_HSV_2(int m, int color_shift, int color_precision, int max_iter);
 int				rainbow_efficient(int n, int color_shift, int color_precision,
 					int max_iter);
 int				rainbow_efficient2(int n, int color_shift, int color_precision,
@@ -135,6 +138,8 @@ int				black_n_white(int n, int color_shift, int color_precision,
 int				polynomials(int n, int color_shift, int color_precision,
 					int max_iter);
 int    			histogram(int n, t_model *m);
+int yellow_BnW(int n, int color_shift, int color_precision, int max_iter);
+int	rainbow_efficient3(int n, int color_shift, int color_precision, int max_iter);
 // Formulas
 int				xor_formula(double x, double y, t_model *model);
 int				xor_formula_2(double x, double y, t_model *model);

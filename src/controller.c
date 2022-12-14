@@ -28,13 +28,10 @@ int	handle_mouse(int keycode, int x, int y, t_model *m)
 // Allows the user to set the value of c constant with mouse and right click
 int	handle_motion(int x, int y, t_model *m)
 {
-	t_vector mouse_pos;
-	mouse_pos = pixel_to_pos(x, y, m->camera);
-
     m->c = pixel_to_pos(x, y, m->camera);
 	compute(m);
 	render(m);
-	return (0);
+	return(1);
 }
 
 void free_tab(t_model *model)
@@ -62,25 +59,25 @@ int close_app(t_model *m)
 	exit(0);
 }
 
-int close_window(t_model *m)
+void close_window(t_model *m)
 {
 	mlx_destroy_window(m->mlx, m->win);
 }
 
-int change_color_shift(int keycode, t_model *model)
+void change_color_shift(int keycode, t_model *model)
 {
 	if (keycode == 100)
 		model->color_shift = (model->color_shift + 1) % model->max_iter;
 	if (keycode == 97 )
 		model->color_shift = (model->color_shift - 1) % model->max_iter;
 	
-	if(model->color_shift == 0)
+	if(model->color_shift <= 0)
 		model->color_shift = model->max_iter;
 	// printf("color shift : %d \n",  model->color_shift);
 	render(model);
 }
 
-int change_color_precision(int keycode, t_model *model)
+void change_color_precision(int keycode, t_model *model)
 {
 	// printf("color precision : %d\n", model->color_precision );
 	if (keycode == 119)
@@ -91,7 +88,7 @@ int change_color_precision(int keycode, t_model *model)
 	render(model);
 }
 
-int change_max_iter(int keycode, t_model *model)
+void change_max_iter(int keycode, t_model *model)
 {
 	if (keycode == 114)
 		model->max_iter = (model->max_iter + 10);
@@ -108,9 +105,26 @@ int change_max_iter(int keycode, t_model *model)
 	render(model);
 }
 
+void change_color_algo(int keycode, t_model *model)
+{
+	if (keycode == 122)
+	{
+		model->color_algo_id--;
+		if(model->color_algo_id < 0)
+			model->color_algo_id = COLOR_ALGOS_NB - 1;
+	}
+	if (keycode == 120 )
+		model->color_algo_id = (model->color_algo_id + 1) % COLOR_ALGOS_NB;
+
+	printf("color algo id : %d\n", model->color_algo_id);
+	model->color_algo = model->color_algos[model->color_algo_id];
+	render(model);
+}
+
+
 int	handle_key(int keycode, t_model *model)
 {
-	// printf("%d\n", keycode);
+	printf("%d\n", keycode);
 	if (keycode == 100 || keycode == 97)
 		change_color_shift( keycode, model);
 	
@@ -119,6 +133,9 @@ int	handle_key(int keycode, t_model *model)
 
 	if (keycode == 102 || keycode == 114)
 		change_max_iter( keycode, model);
+
+	if (keycode == 120 || keycode == 122)
+		change_color_algo( keycode, model);
 
 	if (keycode == 32)
 		print_params(model);
@@ -131,7 +148,8 @@ int	handle_key(int keycode, t_model *model)
 		
 	return (0);
 }
-int print_double(double db)
+
+void print_double(double db)
 {
 	int units;
 	double db_tmp = db;
@@ -164,7 +182,7 @@ int print_double(double db)
 	ft_printf("%d ", decimals);
 }
 
-int	print_params(t_model *model)
+void	print_params(t_model *model)
 {
 	ft_printf("\n\n+---------------- Params --------------------+\n");
 	ft_printf("fractal         : %s\n",  model->formula_name);

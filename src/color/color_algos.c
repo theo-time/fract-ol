@@ -16,7 +16,7 @@ int coloring(int n, t_model *model)
 		n = n * model->color_precision % model->max_iter;
 	}
 
-	if (model->color_algo_id == 0)
+	if (model->color_algo_id == 13)
 		return (histogram(n, model));
 
 
@@ -136,25 +136,25 @@ int	rainbow_efficient2(int n, int color_shift, int color_precision, int max_iter
 	n = (n + 50) % max_iter;
 	if(n < 5)
 		return(color1);
-	else if(n < 10)
+	else if(n < (float) 10 / (float) 100 * max_iter)
 		return(color2);
-	else if(n < 20)
+	else if(n < (float)20 / (float) 100 * max_iter)
 		return(color3);
-	else if(n < 30)
+	else if(n < (float)30 / (float) 100 * max_iter)
 		return(color4);
-	else if(n < 40)
+	else if(n < (float)40 / (float) 100 * max_iter)
 		return(color5);
-	else if(n < 50)
+	else if(n < (float)50 / (float) 100 * max_iter)
 		return(color6);	
-	else if(n < 60)
+	else if(n < (float)60 / (float) 100 * max_iter)
 		return(color7);
-	else if(n < 70)
+	else if(n < (float)70 / (float) 100 * max_iter)
 		return(color8);
-	else if(n < 80)
+	else if(n < (float)80 / (float) 100 * max_iter)
 		return(color9);
-	else if(n < 90)
+	else if(n < (float)90 / (float) 100 * max_iter)
 		return(color10);
-	else if(n < (5 / 5) * max_iter)
+	else 
 		return(color11);
 	return(create_trgb(255, 255, 0, 127));
 } 
@@ -279,10 +279,8 @@ float lerp(float color1, float color2, int t)
 int    histogram(int n, t_model *m)
 {
  	static float hue = 0;
- 	static float prev_hue = 0;
 	float saturation;
 	float value;
-	prev_hue = hue;
 	hue = 360.0f  - (360.0f * lerp(m->hues[(int)floor(n)], m->hues[(int)ceil(n)], n % 1));
 	saturation = 100;
 	if (n < m->max_iter)
