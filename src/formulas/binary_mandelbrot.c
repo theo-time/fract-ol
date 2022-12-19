@@ -1,7 +1,7 @@
 
 #include "fractol.h"
 
-int	mandelbrot(double c_r, double c_i, t_model *model)
+int	binary_mandelbrot(double c_r, double c_i, t_model *model)
 {
 	(void) model;
 	c_double c;
@@ -28,5 +28,8 @@ int	mandelbrot(double c_r, double c_i, t_model *model)
         return (model->max_iter);
 	}
 
-	return (i + 1 - log(log2(sqrt(z.r*z.r + z.i * z.i))));
+	if( 0 < z.i)
+		return (i + 1 - log(log2(sqrt(z.r*z.r + z.i * z.i))));
+	else
+		return ((i + 1 - log(log2(sqrt(z.r*z.r + z.i * z.i)))) / 2);
 }

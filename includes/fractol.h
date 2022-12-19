@@ -23,8 +23,10 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 
-# define WINDOW_X_SIZE 720
+# define WINDOW_X_SIZE 853
 # define WINDOW_Y_SIZE 480
+# define HD_X_SIZE 1777
+# define HD_Y_SIZE 1000
 # define MAX_ITER 200
 # define COLOR_ALGOS_NB 14
 
@@ -70,11 +72,15 @@ typedef struct Model
 	unsigned long			histogram_total;
 	int			max_iter;
 	char		*formula_name;
-	double		**values;
+	void		*formula;
 	void		*mlx;
 	void		*win;
+	double		**values;
+	void		*win_HD;
+	double		**values_HD;
 	t_camera	camera;
 	t_data		img;
+	t_data		img_HD;
 	t_vector	c;
 }				t_model;
 
@@ -92,15 +98,16 @@ int				handle_motion(int x, int y, t_model *m);
 int				handle_key(int keycode, t_model *m);
 void				close_window(t_model *m);
 int				close_app(t_model *m);
+int				close_window_HD(t_model *m);
 void				print_params(t_model *model);
 
 // UI
 void			print_menu(void);
 
 // Camera
-t_vector		pixel_to_pos(int x, int y, t_camera camera);
+t_vector	pixel_to_pos(int x, int y, t_camera camera, t_data img);
 void 			move_camera(int keycode, t_model *m);
-void			zoom_in(t_camera *camera, int x, int y);
+void 			zoom_in(t_model *m, t_camera *camera, int x, int y);
 void			zoom_out(t_camera *camera, int x, int y);
 
 // Color conversions
@@ -126,6 +133,7 @@ int				multicolor2(int n, int color_shift, int color_precision,
 					int max_iter);
 int				basic_HSV(int n, int color_shift, int color_precision,
 					int max_iter);
+int	basic_HSV2(int m, int color_shift, int color_precision, int max_iter);
 int				shaded_HSV(int n, int color_shift, int color_precision,
 					int max_iter);
 int	shaded_HSV_2(int m, int color_shift, int color_precision, int max_iter);
@@ -137,16 +145,26 @@ int				black_n_white(int n, int color_shift, int color_precision,
 					int max_iter);
 int				polynomials(int n, int color_shift, int color_precision,
 					int max_iter);
+int				polynomials_red(int n, int color_shift, int color_precision,
+					int max_iter);
+int				polynomials_2_colors_tweak(int n, int color_shift, int color_precision,
+					int max_iter);
 int    			histogram(int n, t_model *m);
 int yellow_BnW(int n, int color_shift, int color_precision, int max_iter);
 int	rainbow_efficient3(int n, int color_shift, int color_precision, int max_iter);
+
 // Formulas
 int				xor_formula(double x, double y, t_model *model);
 int				xor_formula_2(double x, double y, t_model *model);
 int				mandelbrot(double x, double y, t_model *model);
 int				julia(double c_r, double c_i, t_model *model);
 int				burning_ship(double c_r, double c_i, t_model *model);
+int				mandelbrot_strange(double c_r, double c_i, t_model *model);
+int				inverse_mandelbrot(double c_r, double c_i, t_model *model);
+int				binary_mandelbrot(double c_r, double c_i, t_model *model);
 
-void			render(t_model *m);
+void			paint_window(t_model *m, void	*win, t_data img, double **values);
+void			render(t_model *m, int HD);
 void			compute(t_model *m);
+void			compute_HD(t_model *m);
 #endif

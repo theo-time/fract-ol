@@ -18,50 +18,56 @@ int	handle_mouse(int keycode, int x, int y, t_model *m)
 	if (keycode == 5)
 		zoom_out(&(m->camera), x, y);
 	if (keycode == 4)
-		zoom_in(&(m->camera), x, y);
+		zoom_in(m, &(m->camera), x, y);
 	// m->c = pixel_to_pos(x, y, m->camera);
 	compute(m);
-	render(m);
+	render(m,0);
 	return (0);
 }
 
 // Allows the user to set the value of c constant with mouse and right click
 int	handle_motion(int x, int y, t_model *m)
 {
-    m->c = pixel_to_pos(x, y, m->camera);
+    m->c = pixel_to_pos(x, y, m->camera, m->img);
 	compute(m);
-	render(m);
+	render(m,0);
 	return(1);
 }
 
-void free_tab(t_model *model)
+void free_tab(double **values, int width)
 {
 	int i;
 
 	i = 0;
-	while(i < WINDOW_X_SIZE)
+	while(i < width)
 	{
-		free(model->values[i]);
+		free(values[i]);
 		i++;
 	}
-	free(model->values);
+	free(values);
 }
 
 int close_app(t_model *m)
 {
-	free_tab(m);
 	mlx_destroy_window(m->mlx, m->win);
+	if(m->win_HD)
+		mlx_destroy_window(m->mlx, m->win_HD);
 	mlx_destroy_image(m->mlx, m->img.img);
+	mlx_destroy_image(m->mlx, m->img_HD.img);
 	mlx_destroy_display(m->mlx);
 	free(m->mlx);
 	free(m->histogram);
 	free(m->hues);
+	free_tab(m->values, WINDOW_X_SIZE);
+	free_tab(m->values_HD, HD_X_SIZE);
 	exit(0);
 }
 
-void close_window(t_model *m)
+int close_window_HD(t_model *m)
 {
-	mlx_destroy_window(m->mlx, m->win);
+	mlx_destroy_window(m->mlx, m->win_HD);
+	m->win_HD = NULL;
+	return(1);
 }
 
 void change_color_shift(int keycode, t_model *model)
@@ -74,7 +80,7 @@ void change_color_shift(int keycode, t_model *model)
 	if(model->color_shift <= 0)
 		model->color_shift = model->max_iter;
 	// printf("color shift : %d \n",  model->color_shift);
-	render(model);
+	render(model,0);
 }
 
 void change_color_precision(int keycode, t_model *model)
@@ -85,7 +91,7 @@ void change_color_precision(int keycode, t_model *model)
 	if (keycode == 115 && 1 < model->color_precision)
 		model->color_precision = (model->color_precision - 1);
 	// printf("color shift : %d \n",  model->color_shift);
-	render(model);
+	render(model,0);
 }
 
 void change_max_iter(int keycode, t_model *model)
@@ -102,7 +108,7 @@ void change_max_iter(int keycode, t_model *model)
 	model->hues = malloc(model->max_iter * sizeof(double));
 
 	compute(model);
-	render(model);
+	render(model,0);
 }
 
 void change_color_algo(int keycode, t_model *model)
@@ -117,8 +123,22 @@ void change_color_algo(int keycode, t_model *model)
 		model->color_algo_id = (model->color_algo_id + 1) % COLOR_ALGOS_NB;
 
 	printf("color algo id : %d\n", model->color_algo_id);
+	if(model->color_algo_id == 13)
+		compute(model);
 	model->color_algo = model->color_algos[model->color_algo_id];
-	render(model);
+	render(model,0);
+}
+
+void upscale(t_model *m)
+{
+	//mlx_destroy_window(m->mlx, m->win);
+	if(!m->win_HD)
+	{
+		m->win_HD = mlx_new_window(m->mlx, HD_X_SIZE, HD_Y_SIZE, "Final picture");
+		mlx_hook(m->win_HD, 17, 0, close_window_HD, m);
+	}
+	compute_HD(m);
+	render(m,1);
 }
 
 
@@ -139,6 +159,10 @@ int	handle_key(int keycode, t_model *model)
 
 	if (keycode == 32)
 		print_params(model);
+
+	if (keycode == 117)
+		upscale(model);
+		
 
 	if (keycode == 65307)
 		close_app(model);

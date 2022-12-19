@@ -14,7 +14,8 @@ NAME = fractol
 
 SRC = main.c  \
       src/color/color_ops.c src/color/color_algos.c src/color/color_converts.c src/color/color_converts2.c \
-	  src/formulas/bitwise_formulas.c src/formulas/mandelbrot.c src/formulas/julia.c src/formulas/burning_ship.c \
+	  src/formulas/bitwise_formulas.c src/formulas/mandelbrot.c src/formulas/mandelbrot_strange.c src/formulas/julia.c src/formulas/burning_ship.c \
+	  src/formulas/inverse_mandelbrot.c src/formulas/binary_mandelbrot.c\
 	  src/camera.c \
 	  src/controller.c \
 	  lib/gnl/get_next_line.c lib/gnl/get_next_line_utils.c \
@@ -38,9 +39,8 @@ $(NAME): $(OBJ) $(LIBS)
 $(LIBS):
 	make -C lib/ft_printf
 	
-debug: $(LIBS)
+debug: $(LIBS) 
 	$(CC) $(SRC) $(LIBS) $(HEADERS) $(LFLAGS) -g3 -o $(NAME) 
-
 
 %.o: %.c
 	$(CC) -Wall -Wextra -Werror $(HEADERS) -I/usr/include -Imlx_linux -O3 -c $< -o $@

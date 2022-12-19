@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/fractol",
-            "args": ["Mandelbrot"],
+            "args": ["M"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

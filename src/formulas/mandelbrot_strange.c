@@ -1,12 +1,7 @@
 
 #include "fractol.h"
 
-double	module(int x, int y)
-{
-	return (sqrt(x * x + y * y));
-}
-
-int	mandelbrot(double c_r, double c_i, t_model *model)
+int	mandelbrot_strange(double c_r, double c_i, t_model *model)
 {
 	(void) model;
 	c_double c;
@@ -26,6 +21,10 @@ int	mandelbrot(double c_r, double c_i, t_model *model)
 		z.i = 2 * z.i * tmp + c.i;
 		i++;
 		// printf("x : %d | y : %d --> i : %d\n", x, y, i);
+	}
+    if (i == model->max_iter)
+	{
+        return (model->max_iter);
 	}
 
 	return (i + 1 - log(log2(abs(z.r))));

@@ -15,7 +15,7 @@ void move_camera(int keycode, t_model *m)
         m->camera.pos.y += m->camera.size.y  /  10.0f;
 
     compute(m);
-	render(m);
+	render(m, 0);
 }
 
 t_vector interpolate(t_vector a, t_vector b, float f)
@@ -37,9 +37,9 @@ t_vector v_add(t_vector a, t_vector b)
     return output;
 }
 
-void zoom_in(t_camera *camera, int x, int y)
+void zoom_in(t_model *m, t_camera *camera, int x, int y)
 {
-    camera->pos = v_add(camera->pos, interpolate(camera->pos, pixel_to_pos(x, y, *camera), 0.3));//+= (x - camera->pos.x) / 2;/+= (y- camera->pos.y) / 2;
+    camera->pos = v_add(camera->pos, interpolate(camera->pos, pixel_to_pos(x, y, *camera, m->img), 0.3));//+= (x - camera->pos.x) / 2;/+= (y- camera->pos.y) / 2;
     camera->size.x /= 1.2f;
     camera->size.y /= 1.2f;
 }

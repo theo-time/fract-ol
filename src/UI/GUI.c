@@ -21,6 +21,7 @@ void print_menu()
     while(line)
     {
         ft_printf("%s", line);
+        free(line);
         line = get_next_line(fd);  
     }
     close(fd);
