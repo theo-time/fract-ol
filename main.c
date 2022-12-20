@@ -291,11 +291,22 @@ int	main(int argc, char **argv)
 	// m.palette.colors[1] = create_trgb(255, 0, 125, 45);
 	// m.palette.colors[2] = create_trgb(255, 0, 0, 0);
 
-	m.palette.size = 4;
-	m.palette.colors[0] = create_trgb(255, 20, 11, 52);
-	m.palette.colors[1] = create_trgb(255, 132, 32, 107);
-	m.palette.colors[2] = create_trgb(255, 229, 92, 48);
-	m.palette.colors[3] = create_trgb(255, 246,215, 70);
+	// m.palette.size = 4;
+	// m.palette.colors[0] = create_trgb(255, 20, 11, 52);
+	// m.palette.colors[1] = create_trgb(255, 132, 32, 107);
+	// m.palette.colors[2] = create_trgb(255, 229, 92, 48);
+	// m.palette.colors[3] = create_trgb(255, 246,215, 70);
+
+
+	// m.palette.size = 4;
+	// m.palette.colors[0] = create_trgb(255, 255, 255, 255);
+	// m.palette.colors[1] = create_trgb(28, 91, 32, 102);
+	// m.palette.colors[2] = create_trgb(255, 31, 24, 110);
+	// m.palette.colors[3] = create_trgb(255, 33, 170, 191);
+
+	m.palette.size = 2;
+	m.palette.colors[0] = create_trgb(255, 214, 246, 94);
+	m.palette.colors[1] = create_trgb(255, 0, 139, 175);
 
 	// MDB init
 	m.c.x = 0;

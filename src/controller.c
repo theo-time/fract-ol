@@ -6,7 +6,7 @@
 /*   By: teliet <teliet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:39:48 by teliet            #+#    #+#             */
-/*   Updated: 2022/12/09 18:00:41 by teliet           ###   ########.fr       */
+/*   Updated: 2022/12/20 18:39:43 by teliet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,11 @@ void change_max_iter(int keycode, t_model *model)
 		model->max_iter = (model->max_iter + 10);
 	if (keycode == 102 && 1 < model->max_iter)
 		model->max_iter = (model->max_iter - 10);
-	
+	if (keycode == 116)
+		model->max_iter = (model->max_iter + 500);
+	if (keycode == 103 && 1 < model->max_iter)
+		model->max_iter = (model->max_iter - 500);
+		
 	free(model->histogram);
 	model->histogram = malloc(model->max_iter * sizeof(int));
 
@@ -151,7 +155,7 @@ int	handle_key(int keycode, t_model *model)
 	if (keycode == 119 || keycode == 115)
 		change_color_precision( keycode, model);
 
-	if (keycode == 102 || keycode == 114)
+	if (keycode == 102 || keycode == 114 || keycode == 103 || keycode == 116)
 		change_max_iter( keycode, model);
 
 	if (keycode == 120 || keycode == 122)

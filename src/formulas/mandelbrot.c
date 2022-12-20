@@ -35,7 +35,7 @@ int	mandelbrot(double c_r, double c_i, t_model *model)
 	if(in_disk(c) || in_cardioid(c))
 		return(model->max_iter);
 
-	while (z.r * z.r + z.i * z.i < 4000 && i < model->max_iter)
+	while (z.r * z.r + z.i * z.i < 400000 && i < model->max_iter)
 	{
 		tmp = z.r;
 		z.r = z.r * z.r - z.i * z.i + c.r;
