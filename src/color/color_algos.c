@@ -14,6 +14,8 @@ int	coloring(int n, t_model *model)
 	}
 	if (model->color_algo_id == 13)
 		return (histogram(n, model));
+	if (model->color_algo_id == 14)
+		return (palette_coloring_smooth(n, model));
 	return ((model->color_algo)(n, model->color_shift, model->color_precision,
 			model->max_iter));
 }
@@ -317,10 +319,10 @@ int	polynomials(int n, int color_shift, int color_precision, int max_iter)
 	(void)color_shift;
 	(void)color_precision;
 	// ft_printf("n : %d", n);
-	t = (double)n / (double)max_iter;
-	r = 15 * pow((1 - t), 2) * pow(t, 2) * 255;
-	g = 8.5 * pow((1 - t), 3) * t * 255;
-	b = 9 * (1 - t) * pow(t, 3) * 255; 
+	t = (double) n / (double)max_iter;
+	g = 15 * pow((1 - t), 2) * pow(t, 2) * 255;
+	b = 8.5 * pow((1 - t), 3) * t * 255;
+	r = 9 * (1 - t) * pow(t, 3) * 255; 
 	return (((int)r << 16) | ((int)g << 8) | ((int)b));
 }
 
@@ -329,7 +331,7 @@ int	polynomials(int n, int color_shift, int color_precision, int max_iter)
 
 float	lerp(float color1, float color2, int t)
 {
-	return (color1 * (1 - t) + color2 * t);
+	return (color1 * (float) (1 - t) + (float) color2 * t);
 }
 
 int	histogram(int n, t_model *m)
@@ -381,8 +383,31 @@ int    polynomials_2_colors_tweak(int n, int color_shift, int color_precision, i
     return (((int)r << 16) | ((int)g << 8) | ((int)b));
 }
 
-// int	histogram(int n, int color_shift, int color_precision)
-// {
-// 	(void) color_shift;
-// 	(void) color_precision;
-// }
+int	palette_coloring(int n, t_model *m)
+{
+	if(n == m->max_iter)
+		return(create_trgb(255, 0, 0, 0));
+	return (m->palette.colors[((int)(((float)n / (float)m->max_iter) * m->palette.size )) % m->palette.size ]);
+}
+
+float	color_interpolate(int color1, int color2, double t)
+{
+	int R;
+	int G;
+	int B;
+
+	R = t * (double)  (get_r(color2) - get_r(color1)) + get_r(color1);
+	G = t * (double)  (get_g(color2) - get_g(color1)) + get_g(color1);
+	B = t * (double)  (get_b(color2) - get_b(color1)) + get_b(color1);
+	return(create_trgb(255, R, G, B));
+}
+
+int	palette_coloring_smooth(int n, t_model *m)
+{
+	int color1 = m->palette.colors[(int)(floor((((float) n / (float)m->max_iter) * m->palette.size ))) % m->palette.size ];
+	int color2 = m->palette.colors[(int)(ceil((((float) n / (float)m->max_iter) * m->palette.size ))) % m->palette.size ];
+	float diff = fmod((((float) n / (float)m->max_iter) * m->palette.size ), 1);
+	if(n == m->max_iter)
+		return(create_trgb(255, 0, 0, 0));
+	return (color_interpolate(color1, color2, diff));
+}

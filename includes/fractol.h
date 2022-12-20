@@ -6,7 +6,7 @@
 /*   By: teliet <teliet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 12:00:42 by teliet            #+#    #+#             */
-/*   Updated: 2022/12/09 19:31:05 by teliet           ###   ########.fr       */
+/*   Updated: 2022/12/20 17:47:21 by teliet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 
-# define WINDOW_X_SIZE 853
-# define WINDOW_Y_SIZE 480
-# define HD_X_SIZE 1777
-# define HD_Y_SIZE 1000
+# define WINDOW_X_SIZE 480
+# define WINDOW_Y_SIZE 300
+// # define WINDOW_X_SIZE 2400
+// # define WINDOW_Y_SIZE 1340
+# define HD_X_SIZE 2400
+# define HD_Y_SIZE 1340
 # define MAX_ITER 200
-# define COLOR_ALGOS_NB 14
+# define COLOR_ALGOS_NB 15
 
 typedef struct s_data
 {
@@ -59,6 +61,13 @@ typedef struct camera
 	t_vector	size;
 }				t_camera;
 
+typedef struct palette
+{
+	int		size;
+	int 	colors[10];
+}				t_palette;
+
+
 typedef struct Model
 {
 	double		a;
@@ -70,6 +79,8 @@ typedef struct Model
 	int			*histogram;
 	double			*hues;
 	unsigned long			histogram_total;
+	t_palette	palettes[3];
+	t_palette	palette;
 	int			max_iter;
 	char		*formula_name;
 	void		*formula;
@@ -152,6 +163,8 @@ int				polynomials_2_colors_tweak(int n, int color_shift, int color_precision,
 int    			histogram(int n, t_model *m);
 int yellow_BnW(int n, int color_shift, int color_precision, int max_iter);
 int	rainbow_efficient3(int n, int color_shift, int color_precision, int max_iter);
+int	palette_coloring(int n, t_model *m);
+int	palette_coloring_smooth(int n, t_model *m);
 
 // Formulas
 int				xor_formula(double x, double y, t_model *model);
@@ -167,4 +180,5 @@ void			paint_window(t_model *m, void	*win, t_data img, double **values);
 void			render(t_model *m, int HD);
 void			compute(t_model *m);
 void			compute_HD(t_model *m);
+
 #endif

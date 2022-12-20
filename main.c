@@ -243,6 +243,7 @@ int	main(int argc, char **argv)
 	set_formula(argv[1], &m);
 	m.mlx = mlx_init();
 	m.win = mlx_new_window(m.mlx, WINDOW_X_SIZE, WINDOW_Y_SIZE, "Explore");
+	m.win_HD = NULL;
 	m.camera = get_camera(WINDOW_X_SIZE, WINDOW_Y_SIZE);
 
 	// explorer image 
@@ -285,10 +286,21 @@ int	main(int argc, char **argv)
 	m.color_algos[12] = &polynomials;
 	m.color_algos[13] = &histogram;
 
+	// m.palette.size = 2;
+	// m.palette.colors[0] = create_trgb(255, 255, 255, 255);
+	// m.palette.colors[1] = create_trgb(255, 0, 125, 45);
+	// m.palette.colors[2] = create_trgb(255, 0, 0, 0);
+
+	m.palette.size = 4;
+	m.palette.colors[0] = create_trgb(255, 20, 11, 52);
+	m.palette.colors[1] = create_trgb(255, 132, 32, 107);
+	m.palette.colors[2] = create_trgb(255, 229, 92, 48);
+	m.palette.colors[3] = create_trgb(255, 246,215, 70);
+
 	// MDB init
 	m.c.x = 0;
 	m.c.y = 0;
-	m.color_algo_id = 8;
+	m.color_algo_id = 14;
 	m.color_algo = m.color_algos[m.color_algo_id];
 
 	// Julia init
