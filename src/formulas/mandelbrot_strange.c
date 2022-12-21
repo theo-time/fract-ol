@@ -1,31 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mandelbrot_strange.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/21 18:12:19 by theo              #+#    #+#             */
+/*   Updated: 2022/12/21 18:12:34 by theo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "fractol.h"
 
 int	mandelbrot_strange(double c_r, double c_i, t_model *model)
 {
-	(void) model;
-	c_double c;
-	c_double z;
+	c_double	c;
+	c_double	z;
+	int			i;
+	double		tmp;
+
 	c.r = c_r;
 	c.i = c_i;
-	// printf("x : %f | y : %f \n", c.r, c.i);
 	z.r = 0;
 	z.i = 0;
-	int i = 0;
-	double tmp;
-
+	i = 0;
 	while (z.r * z.r + z.i * z.i < 4 && i < model->max_iter)
 	{
 		tmp = z.r;
 		z.r = z.r * z.r - z.i * z.i + c.r;
 		z.i = 2 * z.i * tmp + c.i;
 		i++;
-		// printf("x : %d | y : %d --> i : %d\n", x, y, i);
 	}
-    if (i == model->max_iter)
-	{
-        return (model->max_iter);
-	}
-
-	return (i + 1 - log(log2(abs(z.r))));
+	if (i == model->max_iter)
+		return (model->max_iter);
+	return (i + 1 - log(log2(abs((int)z.r))));
 }

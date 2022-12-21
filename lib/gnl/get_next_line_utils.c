@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: teliet <teliet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:32:12 by teliet            #+#    #+#             */
-/*   Updated: 2022/11/30 18:30:04 by teliet           ###   ########.fr       */
+/*   Updated: 2022/12/21 17:54:44 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*str_not_null(char *dest, char *src)
 	char	*todup;
 	int		i;
 	int		size;
-	
+
 	todup = NULL;
 	if (src == NULL && dest == NULL)
 		return (NULL);

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color_converts2.c                                  :+:      :+:    :+:   */
+/*   HSV_converter.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -19,65 +19,61 @@ double	double_abs(double db)
 	return (db);
 }
 
-int	create_hsv(float H, float S, float V)
+int	create_hsv(float h, float s, float v)
 {
-	float	X;
+	float	x;
 	int		R;
 	int		G;
 	int		B;
-	float	s;
-	float	v;
-	float	C;
+	float	c;
 	float	m;
 
-	if (H > 360 || H < 0 || S > 100 || S < 0 || V > 100 || V < 0)
+	if (h > 360 || h < 0 || s > 100 || s < 0 || v > 100 || v < 0)
 	{
-		printf("The givem HSV values are not in valid range : %f %f %f \n", H,
-				S, V);
+		printf("The givem HSV values are not in valid range : %f %f %f \n", h,
+				s, v);
 		exit(0);
 		return (create_trgb(255, 30, 30, 30));
 	}
-	s = (float)S / (float)100;
-	v = V / (float)100;
-	C = (float)s * (float)v;
-	X = C * (float)(1 - double_abs(fmod(H / 60.0f, 2.0f) - 1));
-	m = v - C;
+	c = ((float) s / 100.0f ) * ((float)v / 100.0f);
+	x = c * (float)(1 - double_abs(fmod(h / 60.0f, 2.0f) - 1));
+	m = ((float)v / 100.0f) - c;
 	float r, g, b;
-	if (H >= 0 && H < 60)
+	if (h >= 0 && h < 60)
 	{
-		r = C;
-		g = X;
+		r = c;
+		g = x;
 		b = 0;
 	}
-	else if (H >= 60 && H < 120)
+	else if (h >= 60 && h < 120)
 	{
-		r = X;
-		g = C;
+		r = x;
+		g = c;
 		b = 0;
 	}
-	else if (H >= 120 && H < 180)
+	else if (h >= 120 && h < 180)
 	{
 		r = 0;
-		g = C;
-		b = X;
+		g = c;
+		b = x;
 	}
-	else if (H >= 180 && H < 240)
+	else if (h >= 180 && h < 240)
 	{
 		r = 0;
-		g = X;
-		b = C;
+		g = x;
+		b = c;
 	}
-	else if (H >= 240 && H < 300)
+	else if (h >= 240 && h < 300)
 	{
-		r = X;
+		r = x;
 		g = 0;
-		b = C;
+		b = c;
 	}
 	else
 	{
-		r = C;
+		r = c;
 		g = 0;
-		b = X;
+		b = x;
 	}
 	R = (r + m) * 255.0f;
 	G = (g + m) * 255.0f;

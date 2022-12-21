@@ -15,6 +15,7 @@
         "utility": "c",
         "cmath": "c",
         "mlx.h": "c",
-        "chrono": "c"
+        "chrono": "c",
+        "fractol.h": "c"
     }
 }

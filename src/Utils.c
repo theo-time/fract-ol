@@ -1,23 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/21 18:49:46 by theo              #+#    #+#             */
+/*   Updated: 2022/12/21 18:50:00 by theo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "fractol.h"
 
-int	get_max(t_data img)
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-	int	i;
-	int	j;
-	int	max;
+	char	*dst;
 
-	max = 0;
-	i = 0;
-	j = 0;
-	while (i < width)
-	{
-		j = 0;
-		while (j < height)
-		{
-			// todo
-			j++;
-		}
-		i++;
-	}
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }
