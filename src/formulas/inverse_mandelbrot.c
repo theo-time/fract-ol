@@ -6,7 +6,7 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:56:32 by theo              #+#    #+#             */
-/*   Updated: 2022/12/21 18:07:51 by theo             ###   ########.fr       */
+/*   Updated: 2022/12/21 20:01:59 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	inverse_mandelbrot(double c_r, double c_i, t_model *model)
 {
-	c_double	c;
-	c_double	z;
+	t_complex	c;
+	t_complex	z;
 	int			i;
 	double		tmp;
 

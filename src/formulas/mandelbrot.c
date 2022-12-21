@@ -6,24 +6,24 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:56:07 by theo              #+#    #+#             */
-/*   Updated: 2022/12/21 18:02:04 by theo             ###   ########.fr       */
+/*   Updated: 2022/12/21 20:01:59 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-double	complex_abs(c_double c)
+double	complex_abs(t_complex c)
 {
 	return (sqrt(c.r * c.r + c.i * c.i));
 }
 
-int	in_disk(c_double c)
+int	in_disk(t_complex c)
 {
 	c.r++;
 	return (complex_abs(c) < 0.25);
 }
 
-int	in_cardioid(c_double c)
+int	in_cardioid(t_complex c)
 {
 	double	q;
 
@@ -33,8 +33,8 @@ int	in_cardioid(c_double c)
 
 int	mandelbrot(double c_r, double c_i, t_model *model)
 {
-	c_double	c;
-	c_double	z;
+	t_complex	c;
+	t_complex	z;
 	int			i;
 	double		tmp;
 

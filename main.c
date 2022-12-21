@@ -6,16 +6,16 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:54:15 by theo              #+#    #+#             */
-/*   Updated: 2022/12/21 19:02:22 by theo             ###   ########.fr       */
+/*   Updated: 2022/12/21 20:21:35 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void init_color_algos(t_model	*m)
+void	init_color_algos(t_model *m)
 {
 	m->color_algos[0] = &neutral;
-	m->color_algos[1] = &yellow_BnW;
+	m->color_algos[1] = &yellow_bnw;
 	m->color_algos[2] = &black_n_white;
 	m->color_algos[3] = &one_color_gradient;
 	m->color_algos[4] = &one_color_gradient2;
@@ -27,34 +27,36 @@ void init_color_algos(t_model	*m)
 	m->color_algos[10] = &shaded_HSV;
 	m->color_algos[11] = &shaded_HSV_2;
 	m->color_algos[12] = &polynomials;
-	m->color_algos[13] = &histogram;	
+	m->color_algos[13] = &histogram;
+	m->color_algo_id = 14;
+	m->color_algo = m->color_algos[m->color_algo_id];
 }
 
-void init_palettes(t_model	*m)
+void	init_palettes(t_model *m)
 {
-	// m.palette.size = 2;
-	// m.palette.colors[0] = create_trgb(255, 255, 255, 255);
-	// m.palette.colors[1] = create_trgb(255, 0, 125, 45);
-	// m.palette.colors[2] = create_trgb(255, 0, 0, 0);
+	// m->palette.size = 2;
+	// m->palette.colors[0] = create_trgb(255, 255, 255, 255);
+	// m->palette.colors[1] = create_trgb(255, 0, 125, 45);
+	// m->palette.colors[2] = create_trgb(255, 0, 0, 0);
 	m->palette.size = 4;
-	m.palette.colors[0] = create_trgb(255, 20, 11, 52);
-	m.palette.colors[1] = create_trgb(255, 132, 32, 107);
-	m.palette.colors[2] = create_trgb(255, 229, 92, 48);
-	m.palette.colors[3] = create_trgb(255, 246, 215, 70);
-	// m.palette.size = 4;
-	// m.palette.colors[0] = create_trgb(255, 255, 255, 255);
-	// m.palette.colors[1] = create_trgb(28, 91, 32, 102);
-	// m.palette.colors[2] = create_trgb(255, 31, 24, 110);
-	// m.palette.colors[3] = create_trgb(255, 33, 170, 191);
-	// m.palette.size = 2;
-	// m.palette.colors[0] = create_trgb(255, 214, 246, 94);
-	// m.palette.colors[1] = create_trgb(255, 0, 139, 175);
+	m->palette.colors[0] = create_trgb(255, 20, 11, 52);
+	m->palette.colors[1] = create_trgb(255, 132, 32, 107);
+	m->palette.colors[2] = create_trgb(255, 229, 92, 48);
+	m->palette.colors[3] = create_trgb(255, 246, 215, 70);
+	// m->palette.size = 4;
+	// m->palette.colors[0] = create_trgb(255, 255, 255, 255);
+	// m->palette.colors[1] = create_trgb(28, 91, 32, 102);
+	// m->palette.colors[2] = create_trgb(255, 31, 24, 110);
+	// m->palette.colors[3] = create_trgb(255, 33, 170, 191);
+	// m->palette.size = 2;
+	// m->palette.colors[0] = create_trgb(255, 214, 246, 94);
+	// m->palette.colors[1] = create_trgb(255, 0, 139, 175);
 }
 
-void init_images(t_model	*m)
+void	init_images(t_model *m)
 {
 	t_data	img;
-	t_data	img_HD;
+	t_data	img_hd;
 
 	// Explorer image
 	img.img = mlx_new_image(m->mlx, WINDOW_X_SIZE, WINDOW_Y_SIZE);
@@ -64,12 +66,32 @@ void init_images(t_model	*m)
 	img.height = WINDOW_Y_SIZE;
 	m->img = img;
 	// HD image
-	img_HD.img = mlx_new_image(m->mlx, HD_X_SIZE, HD_Y_SIZE);
-	img_HD.addr = mlx_get_data_addr(img_HD.img, &img_HD.bits_per_pixel,
-			&img_HD.line_length, &img_HD.endian);
-	img_HD.width = HD_X_SIZE;
-	img_HD.height = HD_Y_SIZE;	
-	m->img_HD = img_HD;
+	img_hd.img = mlx_new_image(m->mlx, HD_X_SIZE, HD_Y_SIZE);
+	img_hd.addr = mlx_get_data_addr(img_hd.img, &img_hd.bits_per_pixel,
+			&img_hd.line_length, &img_hd.endian);
+	img_hd.width = HD_X_SIZE;
+	img_hd.height = HD_Y_SIZE;
+	m->img_hd = img_hd;
+	m->c.x = -0.4f;
+	m->c.y = 0.6f;
+}
+
+void	init_various_params(t_model *m)
+{
+	// Common init
+	m->mlx = mlx_init();
+	m->win = mlx_new_window(m->mlx, WINDOW_X_SIZE, WINDOW_Y_SIZE, "Explore");
+	m->win_hd = NULL;
+	m->camera = get_camera(WINDOW_X_SIZE, WINDOW_Y_SIZE);
+	m->color_shift = 0;
+	m->color_precision = 1;
+	m->max_iter = MAX_ITER;
+	m->values = get_empty_tab(WINDOW_X_SIZE, WINDOW_Y_SIZE);
+	m->values_hd = get_empty_tab(HD_X_SIZE, HD_Y_SIZE);
+	m->histogram = malloc(MAX_ITER * sizeof(int));
+	m->hues = malloc(MAX_ITER * sizeof(double));
+	if (!m->histogram || !m->hues)
+		exit(1);
 }
 
 int	main(int argc, char **argv)
@@ -79,35 +101,15 @@ int	main(int argc, char **argv)
 	print_menu();
 	if (argc < 2)
 		return (1);
-	// Common init
 	m.formula_name = argv[1];
 	set_formula(argv[1], &m);
-	m.mlx = mlx_init();
-	m.win = mlx_new_window(m.mlx, WINDOW_X_SIZE, WINDOW_Y_SIZE, "Explore");
-	m.win_HD = NULL;
-	m.camera = get_camera(WINDOW_X_SIZE, WINDOW_Y_SIZE);
+	init_various_params(&m);
 	init_images(&m);
-	m.color_shift = 0;
-	m.color_precision = 1;
-	m.max_iter = MAX_ITER;
-	m.values = get_empty_tab(WINDOW_X_SIZE, WINDOW_Y_SIZE);
-	m.values_HD = get_empty_tab(HD_X_SIZE, HD_Y_SIZE);
-	m.histogram = malloc(MAX_ITER * sizeof(int));
-	m.hues = malloc(MAX_ITER * sizeof(double));
-	if (!m.histogram || !m.hues)
-		return (1);
 	init_color_algos(&m);
 	init_palettes(&m);
-	// MDB init
-	m.c.x = 0;
-	m.c.y = 0;
-	m.color_algo_id = 14;
-	m.color_algo = m.color_algos[m.color_algo_id];
 	// Julia init
 	if (m.formula_name[0] == 'J')
 	{
-		m.c.x = -0.4f;
-		m.c.y = 0.6f;
 		m.camera.pos.x = 0;
 		m.camera.pos.y = 0.0f;
 	}
@@ -118,5 +120,4 @@ int	main(int argc, char **argv)
 	mlx_hook(m.win, 6, 1L << 8, handle_motion, &m);
 	mlx_mouse_hook(m.win, handle_mouse, &m);
 	mlx_loop(m.mlx);
-	// Clean garbage
 }

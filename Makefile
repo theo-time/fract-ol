@@ -6,7 +6,7 @@
 #    By: theo <theo@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 20:41:39 by teliet            #+#    #+#              #
-#    Updated: 2022/12/21 18:53:32 by theo             ###   ########.fr        #
+#    Updated: 2022/12/21 19:54:12 by theo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,13 +18,13 @@ SRC = main.c  \
 	  src/formulas/bitwise_formulas.c src/formulas/mandelbrot.c src/formulas/mandelbrot_strange.c src/formulas/julia.c src/formulas/burning_ship.c \
 	  src/formulas/inverse_mandelbrot.c src/formulas/binary_mandelbrot.c\
 	  src/camera.c \
-	  src/controller.c \
+	  src/controller/event_handlers.c src/controller/close_app.c src/controller/controls.c \
 	  src/computations.c \
 	  src/init.c \
 	  src/render.c \
 	  src/Utils.c \
 	  lib/gnl/get_next_line.c lib/gnl/get_next_line_utils.c \
-	  src/UI/GUI.c 
+	  src/UI/shell_ui.c 
 
 CC = gcc
 

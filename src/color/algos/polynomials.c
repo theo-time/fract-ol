@@ -6,7 +6,7 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 18:33:42 by theo              #+#    #+#             */
-/*   Updated: 2022/12/21 18:34:42 by theo             ###   ########.fr       */
+/*   Updated: 2022/12/21 20:17:04 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	polynomials(int n, int color_shift, int color_precision, int max_iter)
 	r = 9 * (1 - t) * pow(t, 3) * 255;
 	return (((int)r << 16) | ((int)g << 8) | ((int)b));
 }
-
 
 int	polynomials_red(int n, int color_shift, int color_precision, int max_iter)
 {

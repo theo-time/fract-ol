@@ -6,7 +6,7 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 18:47:34 by theo              #+#    #+#             */
-/*   Updated: 2022/12/21 18:49:09 by theo             ###   ########.fr       */
+/*   Updated: 2022/12/21 20:01:13 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	render(t_model *m, int hd)
 {
-	if(hd)
-		paint_window(m , m->win_HD, m->img_HD, m->values_HD);
+	if (hd)
+		paint_window(m, m->win_hd, m->img_hd, m->values_hd);
 	else
-		paint_window(m , m->win, m->img, m->values);
+		paint_window(m, m->win, m->img, m->values);
 }
 
 t_vector	pixel_to_pos(int x, int y, t_camera camera, t_data img)
@@ -45,7 +45,7 @@ void	paint_image_true_coord(t_model m, int (*formula)(int, int, t_model *),
 		while (j < WINDOW_Y_SIZE)
 		{
 			my_mlx_pixel_put(&(m.img), i, j, color_algo(formula(i, j, &m), 0, 0,
-						0));
+					0));
 			j++;
 		}
 		i++;

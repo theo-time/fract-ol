@@ -6,7 +6,7 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:29:55 by theo              #+#    #+#             */
-/*   Updated: 2022/12/21 18:39:43 by theo             ###   ########.fr       */
+/*   Updated: 2022/12/21 20:15:51 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ int	histogram(int n, t_model *m)
 		value = 100;
 	else
 		value = 0;
-	// if(value == 0)
-	// 	printf("%f \n", value);
 	return (create_hsv(hue, saturation, value));
 }
 
@@ -57,7 +55,6 @@ unsigned long	sum_histogram(t_model m)
 	}
 	return (sum);
 }
-
 
 void	compute_values_histo(t_model m, int (*formula)(double, double,
 			t_model *), double **values_tab)
@@ -98,8 +95,6 @@ void	compute_hues(t_model m)
 	while (i < m.max_iter)
 	{
 		hue += (float)m.histogram[i] / (float)m.histogram_total;
-		// printf("histo : %d / %ld :\n",  m.histogram[i], m.histogram_total);
-		// printf("hue : %f \n", hue);
 		m.hues[i] = hue;
 		i++;
 	}

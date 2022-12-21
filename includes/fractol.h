@@ -6,7 +6,7 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 12:00:42 by teliet            #+#    #+#             */
-/*   Updated: 2022/12/21 18:58:13 by theo             ###   ########.fr       */
+/*   Updated: 2022/12/21 20:21:35 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct complex_double
 {
 	double			r;
 	double			i;
-}					c_double;
+}					t_complex;
 
 typedef struct vector
 {
@@ -86,11 +86,11 @@ typedef struct Model
 	void			*mlx;
 	void			*win;
 	double			**values;
-	void			*win_HD;
-	double			**values_HD;
+	void			*win_hd;
+	double			**values_hd;
 	t_camera		camera;
 	t_data			img;
-	t_data			img_HD;
+	t_data			img_hd;
 	t_vector		c;
 }					t_model;
 
@@ -107,17 +107,24 @@ double				**get_empty_tab(int size_x, int size_y);
 t_camera			get_camera(int width, int height);
 void				set_formula(char *formula_name, t_model *m);
 
-// Controller
+// Event handler
 int					handle_mouse(int keycode, int x, int y, t_model *m);
 int					handle_motion(int x, int y, t_model *m);
 int					handle_key(int keycode, t_model *m);
+
+// Controls
 void				close_window(t_model *m);
 int					close_app(t_model *m);
-int					close_window_HD(t_model *m);
-void				print_params(t_model *model);
+int					close_window_hd(t_model *m);
+void				change_color_algo(int keycode, t_model *model);
+void				change_color_shift(int keycode, t_model *model);
+void				change_color_precision(int keycode, t_model *model);
+void				change_max_iter(int keycode, t_model *model);
+void				upscale(t_model *m);
 
-// UI
+// Shell UI
 void				print_menu(void);
+void				print_params(t_model *model);
 
 // Camera
 t_vector			pixel_to_pos(int x, int y, t_camera camera, t_data img);
@@ -136,7 +143,7 @@ int					create_hsv(float H, float S, float V);
 // Color operations
 int					add_shade(int trgb, int shade);
 float				lerp(float color1, float color2, int t);
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void				my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 // Coloring algos
 int					coloring(int n, t_model *model);
@@ -169,7 +176,7 @@ int					polynomials_red(int n, int color_shift, int color_precision,
 int					polynomials_2_colors_tweak(int n, int color_shift,
 						int color_precision, int max_iter);
 int					histogram(int n, t_model *m);
-int					yellow_BnW(int n, int color_shift, int color_precision,
+int					yellow_bnw(int n, int color_shift, int color_precision,
 						int max_iter);
 int					rainbow_efficient3(int n, int color_shift,
 						int color_precision, int max_iter);
@@ -177,9 +184,9 @@ int					palette_coloring(int n, t_model *m);
 int					palette_coloring_smooth(int n, t_model *m);
 
 // Complex plane maths
-double	complex_abs(c_double c);
-int	in_disk(c_double c);
-int	in_cardioid(c_double c);
+double				complex_abs(t_complex c);
+int					in_disk(t_complex c);
+int					in_cardioid(t_complex c);
 
 // Formulas
 int					xor_formula(double x, double y, t_model *model);
@@ -196,7 +203,7 @@ void				paint_window(t_model *m, void *win, t_data img,
 						double **values);
 void				render(t_model *m, int HD);
 void				compute(t_model *m);
-void				compute_HD(t_model *m);
+void				compute_hd(t_model *m);
 void				compute_values(t_model m, int (*formula)(double, double,
 							t_model *), double **values_tab, t_data img);
 void				compute_values_histo(t_model m, int (*formula)(double,

@@ -6,7 +6,7 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:40:41 by teliet            #+#    #+#             */
-/*   Updated: 2022/12/21 18:06:15 by theo             ###   ########.fr       */
+/*   Updated: 2022/12/21 20:01:59 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ double	my_abs(double d)
 
 int	burning_ship(double c_r, double c_i, t_model *model)
 {
-	c_double	c;
-	c_double	z;
+	t_complex	c;
+	t_complex	z;
 	int			i;
 	double		tmp;
 

@@ -6,7 +6,7 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 18:34:59 by theo              #+#    #+#             */
-/*   Updated: 2022/12/21 18:35:27 by theo             ###   ########.fr       */
+/*   Updated: 2022/12/21 20:16:34 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ int	palette_coloring(int n, t_model *m)
 
 float	color_interpolate(int color1, int color2, double t)
 {
-	int	R;
-	int	G;
-	int	B;
+	int	r;
+	int	g;
+	int	b;
 
-	R = t * (double)(get_r(color2) - get_r(color1)) + get_r(color1);
-	G = t * (double)(get_g(color2) - get_g(color1)) + get_g(color1);
-	B = t * (double)(get_b(color2) - get_b(color1)) + get_b(color1);
-	return (create_trgb(255, R, G, B));
+	r = t * (double)(get_r(color2) - get_r(color1)) + get_r(color1);
+	g = t * (double)(get_g(color2) - get_g(color1)) + get_g(color1);
+	b = t * (double)(get_b(color2) - get_b(color1)) + get_b(color1);
+	return (create_trgb(255, r, g, b));
 }
 
 int	palette_coloring_smooth(int n, t_model *m)

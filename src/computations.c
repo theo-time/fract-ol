@@ -6,7 +6,7 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:29:04 by theo              #+#    #+#             */
-/*   Updated: 2022/12/21 18:53:08 by theo             ###   ########.fr       */
+/*   Updated: 2022/12/21 20:01:13 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	compute(t_model *m)
 		compute_values(*m, m->formula, m->values, m->img);
 }
 
-void	compute_HD(t_model *m)
+void	compute_hd(t_model *m)
 {
 	if (m->color_algo_id == 13)
-		compute_values_histo(*m, m->formula, m->values_HD);
+		compute_values_histo(*m, m->formula, m->values_hd);
 	else
-		compute_values(*m, m->formula, m->values_HD, m->img_HD);
+		compute_values(*m, m->formula, m->values_hd, m->img_hd);
 }
 
 void	compute_values(t_model m, int (*formula)(double, double, t_model *), double **values_tab, t_data img)
