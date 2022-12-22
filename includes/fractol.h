@@ -6,7 +6,7 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 12:00:42 by teliet            #+#    #+#             */
-/*   Updated: 2022/12/21 20:21:35 by theo             ###   ########.fr       */
+/*   Updated: 2022/12/21 20:31:44 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,7 @@ int					rainbow_efficient3(int n, int color_shift,
 						int color_precision, int max_iter);
 int					palette_coloring(int n, t_model *m);
 int					palette_coloring_smooth(int n, t_model *m);
+int					normal_map(int n, t_model *m);
 
 // Complex plane maths
 double				complex_abs(t_complex c);
