@@ -6,7 +6,7 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:39:48 by teliet            #+#    #+#             */
-/*   Updated: 2022/12/21 19:51:11 by theo             ###   ########.fr       */
+/*   Updated: 2022/12/30 14:55:09 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	handle_mouse(int keycode, int x, int y, t_model *m)
 	return (0);
 }
 
-// Allows the user to set the value of c constant with mouse and right click
 int	handle_motion(int x, int y, t_model *m)
 {
 	m->c = pixel_to_pos(x, y, m->camera, m->img);
