@@ -6,7 +6,7 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:39:48 by teliet            #+#    #+#             */
-/*   Updated: 2022/12/30 14:55:09 by theo             ###   ########.fr       */
+/*   Updated: 2022/12/30 16:36:03 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ int	handle_mouse(int keycode, int x, int y, t_model *m)
 
 int	handle_motion(int x, int y, t_model *m)
 {
-	m->c = pixel_to_pos(x, y, m->camera, m->img);
+	if((m->formula_name)[0] == 'J')
+		m->c = pixel_to_pos(x, y, m->camera, m->img);
+	else
+		m->light_angle = x;
 	compute(m);
 	render(m, 0);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:54:15 by theo              #+#    #+#             */
-/*   Updated: 2022/12/21 20:21:35 by theo             ###   ########.fr       */
+/*   Updated: 2022/12/30 16:33:52 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,19 @@ void	init_palettes(t_model *m)
 	// m->palette.colors[0] = create_trgb(255, 255, 255, 255);
 	// m->palette.colors[1] = create_trgb(255, 0, 125, 45);
 	// m->palette.colors[2] = create_trgb(255, 0, 0, 0);
+
+	// INFERNO
 	m->palette.size = 4;
 	m->palette.colors[0] = create_trgb(255, 20, 11, 52);
 	m->palette.colors[1] = create_trgb(255, 132, 32, 107);
 	m->palette.colors[2] = create_trgb(255, 229, 92, 48);
 	m->palette.colors[3] = create_trgb(255, 246, 215, 70);
+
+	// B & W
+	m->palette.size = 2;
+	m->palette.colors[0] = create_trgb(255, 200, 200, 200);
+	m->palette.colors[1] = create_trgb(255, 100, 100, 100);
+
 	// m->palette.size = 4;
 	// m->palette.colors[0] = create_trgb(255, 255, 255, 255);
 	// m->palette.colors[1] = create_trgb(28, 91, 32, 102);
@@ -90,6 +98,7 @@ void	init_various_params(t_model *m)
 	m->values_hd = get_empty_tab(HD_X_SIZE, HD_Y_SIZE);
 	m->histogram = malloc(MAX_ITER * sizeof(int));
 	m->hues = malloc(MAX_ITER * sizeof(double));
+	m->light_angle = 45;
 	if (!m->histogram || !m->hues)
 		exit(1);
 }

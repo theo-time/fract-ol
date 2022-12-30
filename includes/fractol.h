@@ -6,7 +6,7 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 12:00:42 by teliet            #+#    #+#             */
-/*   Updated: 2022/12/21 20:31:44 by theo             ###   ########.fr       */
+/*   Updated: 2022/12/30 16:29:26 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct Model
 	double			**values;
 	void			*win_hd;
 	double			**values_hd;
+	int				light_angle;
 	t_camera		camera;
 	t_data			img;
 	t_data			img_hd;
