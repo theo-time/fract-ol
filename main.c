@@ -6,7 +6,7 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:54:15 by theo              #+#    #+#             */
-/*   Updated: 2022/12/30 16:33:52 by theo             ###   ########.fr       */
+/*   Updated: 2022/12/30 17:39:03 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ void	init_various_params(t_model *m)
 	m->histogram = malloc(MAX_ITER * sizeof(int));
 	m->hues = malloc(MAX_ITER * sizeof(double));
 	m->light_angle = 45;
+	m->light_vector.r = cos(45);
+	m->light_vector.i = sin(45);
 	if (!m->histogram || !m->hues)
 		exit(1);
 }

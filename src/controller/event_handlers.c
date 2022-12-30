@@ -6,7 +6,7 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 16:39:48 by teliet            #+#    #+#             */
-/*   Updated: 2022/12/30 16:36:03 by theo             ###   ########.fr       */
+/*   Updated: 2022/12/30 17:42:00 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,25 @@ int	handle_mouse(int keycode, int x, int y, t_model *m)
 	return (0);
 }
 
+t_complex get_light_vector(int x, int y)
+{
+	t_complex v;
+	double magnitude;
+
+	v.r = x - (float) WINDOW_X_SIZE / 2;
+	v.i = y - (float) WINDOW_Y_SIZE / 2;
+	magnitude = sqrt(v.r * v.r + v.i * v.i);
+	v.r /= magnitude;
+	v.i /= magnitude;
+	return v;
+}
+
 int	handle_motion(int x, int y, t_model *m)
 {
 	if((m->formula_name)[0] == 'J')
 		m->c = pixel_to_pos(x, y, m->camera, m->img);
 	else
-		m->light_angle = x;
+		m->light_vector = get_light_vector(x, y);
 	compute(m);
 	render(m, 0);
 	return (1);

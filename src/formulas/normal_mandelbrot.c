@@ -6,7 +6,7 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 17:56:07 by theo              #+#    #+#             */
-/*   Updated: 2022/12/30 16:51:58 by theo             ###   ########.fr       */
+/*   Updated: 2022/12/30 17:49:46 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,6 @@ t_complex mult(t_complex n1, t_complex n2)
 
 
 float h2 = 1.5;  // height factor of the incoming light
-t_complex v;
-
-// incoming light 3D vector = (v.re,v.im,h2)
-int R = 100;  // do not take R too small
 
 int	mandelbrot(double c_r, double c_i, t_model *model)
 {
@@ -66,14 +62,14 @@ int	mandelbrot(double c_r, double c_i, t_model *model)
 	double		tmp;
 	double		t;
     
-    v.i = cos(model->light_angle);  // unit 2D vector in this direction
-    v.r = sin(model->light_angle); 
+    // v.i = cos(model->light_angle);  // unit 2D vector in this direction
+    // v.r = sin(model->light_angle); 
 	c.r = c_r;
 	c.i = c_i;
     der.r = 1;
     der.i = 0;
-	z.r = c_r;
-	z.i = c_i;
+	z.r = 0;
+	z.i = 0;
 	i = 0;
 	if (in_disk(c) || in_cardioid(c))
 		return (model->max_iter);
@@ -82,7 +78,7 @@ int	mandelbrot(double c_r, double c_i, t_model *model)
 		tmp = z.r;
 		new_z.r = z.r * z.r - z.i * z.i + c.r;
 		new_z.i = 2 * z.i * tmp + c.i;
-        new_der.r = 2 * (der.r * z.r + 1 - der.i * z.i) ;
+        new_der.r = 2 * (der.r * z.r - der.i * z.i) + 1 ;
         new_der.i = 2 * ( der.r * z.i +  der.i * z.r  );
         z.r = new_z.r;
         z.i = new_z.i;
@@ -95,7 +91,7 @@ int	mandelbrot(double c_r, double c_i, t_model *model)
     u = divide(z, der);
     u.r = u.r / complex_abs(u);
     u.i = u.i / complex_abs(u);
-    t = u.r * v.r + u.i * v.i + h2;
+    t = u.r * model->light_vector.r + u.i * model->light_vector.i + h2;
     t = t / (double) (1+h2);
 	return ((double) model->max_iter * t);
 }

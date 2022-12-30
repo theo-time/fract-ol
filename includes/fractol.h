@@ -6,7 +6,7 @@
 /*   By: theo <theo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 12:00:42 by teliet            #+#    #+#             */
-/*   Updated: 2022/12/30 16:29:26 by theo             ###   ########.fr       */
+/*   Updated: 2022/12/30 17:39:51 by theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 
-# define WINDOW_X_SIZE 720
-# define WINDOW_Y_SIZE 480
+# define WINDOW_X_SIZE 480
+# define WINDOW_Y_SIZE 230
 // # define WINDOW_X_SIZE 2400
 // # define WINDOW_Y_SIZE 1340
 # define HD_X_SIZE 1440
@@ -89,6 +89,7 @@ typedef struct Model
 	void			*win_hd;
 	double			**values_hd;
 	int				light_angle;
+	t_complex		light_vector;
 	t_camera		camera;
 	t_data			img;
 	t_data			img_hd;
